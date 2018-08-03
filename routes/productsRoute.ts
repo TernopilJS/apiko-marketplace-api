@@ -3,7 +3,7 @@ import * as db from '../db/productsDb';
 
 /**
  * 
- * @api {GET} /products Get all products
+ * @api {GET} /api/v1/products Get all products
  * @apiName GetProducts
  * @apiGroup Products
  * 
@@ -35,7 +35,7 @@ export async function getProducts(req: Request, res: Response) {
 
 /**
  * 
- * @api {GET} /products/:id Get product by id
+ * @api {GET} /api/v1/products/:id Get product by id
  * @apiName GetProductByID
  * @apiGroup Products
  * 
