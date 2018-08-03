@@ -1,16 +1,9 @@
 import knex from 'knex';
+import knexFile from '../knexfile';
 
-const client = knex({
-  client: 'postgresql',
-  connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'new_password',
-    database : 'perun-site',
-  },
-  migrations: {
-    tableName: 'migrations',
-  },
-});
+const environment: string = process.env.NODE_ENV || 'development';
+const config: knex.Config = knexFile[environment];
+
+const client = knex(config);
 
 export default client;
