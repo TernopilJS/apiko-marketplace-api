@@ -1,7 +1,9 @@
 import knex from 'knex';
 import knexFile from '../knexfile';
 
-const environment: string = process.env.NODE_ENV || 'development';
+type Env = 'development' | 'production';
+
+const environment: Env = process.env.NODE_ENV as Env || 'development';
 const config: knex.Config = knexFile[environment];
 
 const client = knex(config);
