@@ -12,7 +12,7 @@ const hostname: string = 'localhost';
 
 app.use(router);
 
-app.use('/apidoc', express.static('doc'));
+app.use('/apidoc', express.static(path.resolve(__dirname, 'doc')));
 
 app.listen(PORT, (err: any) => {
   if (err) {
