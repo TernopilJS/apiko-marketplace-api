@@ -11,6 +11,10 @@ const hostname: string = 'localhost';
 
 app.use(router);
 
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.sendFile('./doc/index.html');
+});
+
 app.listen(PORT, (err: any) => {
   if (err) {
     console.log(err);
