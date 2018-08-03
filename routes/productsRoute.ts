@@ -7,6 +7,8 @@ export async function getProducts(req: Request, res: Response) {
 
     res.json(products);
   } catch (err) {
+    console.error(err.message);
+
     res.status(500).json({
       errorMessage: 'Something went wrong',
     });
@@ -21,6 +23,8 @@ export async function getProductById(req: Request, res: Response) {
 
     res.json(products);
   } catch (err) {
+    console.error(err.message);
+
     res.status(500).json({
       errorMessage: 'Something went wrong',
     });
