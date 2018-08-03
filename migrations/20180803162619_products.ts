@@ -1,4 +1,6 @@
-exports.up = knex => Promise.all([
+import knex from 'knex';
+
+export const up = (knex: knex) => Promise.all([
   knex.schema.createTable('products', (table) => {
     table.increments('id').primary().unique();
     table.string('title').notNullable()
@@ -9,6 +11,6 @@ exports.up = knex => Promise.all([
   }),
 ]);
 
-exports.down = knex => Promise.all([
+export const down = (knex: knex) => Promise.all([
   knex.schema.dropTable('products'),
 ]);
