@@ -10,7 +10,7 @@ const app: express.Application = express();
 
 const hostname: string = 'localhost';
 
-app.use('api/v1', router);
+app.use('/api/v1', router);
 
 app.use('/apidoc', express.static(path.resolve(__dirname, 'doc')));
 
