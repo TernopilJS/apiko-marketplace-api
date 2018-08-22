@@ -19,3 +19,7 @@ export function getProducts(): Promise<Products> {
 export function getProductById(id: number): Promise<Products> {
   return client('products').where({ id }).select();
 }
+
+export function removeProductById(id: number): Promise<Products> {
+  return client('products').where({ id }).del();
+}

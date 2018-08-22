@@ -1,16 +1,22 @@
 import knex from 'knex';
 
-export const up = (knex: knex) => Promise.all([
-  knex.schema.createTable('products', (table) => {
-    table.increments('id').primary().unique();
-    table.string('title').notNullable()
-    table.string('description').notNullable();
-    table.string('image').notNullable();
-    table.float('price').notNullable();
-    table.timestamps()
-  }),
-]);
+export const up = async (knex: knex) => {
+  // adding extension which will allow us to generate uuid
+  await knex.raw('create extension if not exists "uuid-ossp"');
+  
+  return Promise.all([
+    knex.schema.createTable('products', (t) => {
+      t.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
+      t.string('title').notNullable();
+      t.string('description').notNullable();
+      t.string('image').notNullable();
+      t.float('price').notNullable();
+      t.timestamps();
+    }),
+  ]);
+}
 
 export const down = (knex: knex) => Promise.all([
+  knex.raw('drop extension if exists "uuid-ossp"'),
   knex.schema.dropTable('products'),
 ]);
