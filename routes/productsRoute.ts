@@ -84,3 +84,39 @@ export async function removeProductById(req: Request, res: Response) {
     });
   }
 }
+
+export async function updateProductById(req: Request, res: Response) {
+  try {
+    const id: number = req.params.id;
+    const patch: db.ProductPatch = req.body;
+
+    const products: db.Product[] = await db.updateProductById(
+      id,
+      patch,
+    );
+
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).json({
+      errorMessage: 'Something went wrong',
+    });
+  }
+}
+
+export async function createProduct(req: Request, res: Response) {
+  try {
+    const patch: db.ProductPatch = req.body;
+
+    const products: db.Product[] = await db.createProduct(patch);
+
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).json({
+      errorMessage: 'Something went wrong',
+    });
+  }
+}

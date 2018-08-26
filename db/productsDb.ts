@@ -10,16 +10,43 @@ export type Product = {
   updated_at?: string,
 };
 
-export type Products = [Product];
+export type ProductPatch = {
+  title?: string,
+  description?: string,
+  image?: string,
+  price?: number,
+};
 
-export function getProducts(): Promise<Products> {
+export function getProducts(): Promise<Product[]> {
   return client('products').select('*');
 }
 
-export function getProductById(id: number): Promise<Products> {
-  return client('products').where({ id }).select();
+export function getProductById(id: number): Promise<Product[]> {
+  return client('products')
+    .where({ id })
+    .select();
 }
 
-export function removeProductById(id: number): Promise<Products> {
-  return client('products').where({ id }).del();
+export function removeProductById(id: number): Promise<Product[]> {
+  return client('products')
+    .where({ id })
+    .del();
+}
+
+export function updateProductById(
+  id: number,
+  patch: ProductPatch,
+): Promise<Product[]> {
+  return client('products')
+    .where({ id })
+    .update(patch)
+    .returning('*');
+}
+
+export function createProduct(
+  product: ProductPatch,
+): Promise<Product[]> {
+  return client('products')
+    .insert(product)
+    .returning('*');
 }
