@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import bodyParser from 'body-parser';
 import router from './routes/router';
 
 type Port = string | number;
@@ -7,6 +8,7 @@ type Port = string | number;
 const PORT: Port = process.env.PORT || 3000;
 
 const app: express.Application = express();
+app.use(bodyParser.json());
 
 // const hostname: string = 'localhost';
 
