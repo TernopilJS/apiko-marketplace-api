@@ -8,7 +8,7 @@ const PORT: Port = process.env.PORT || 3000;
 
 const app: express.Application = express();
 
-const hostname: string = 'localhost';
+// const hostname: string = 'localhost';
 
 app.use('/api/v1', router);
 
