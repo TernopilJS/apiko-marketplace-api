@@ -7,7 +7,10 @@
     "start": "node ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "tsc -b && ./node_modules/.bin/apidoc apidoc -i ./routes -o build/doc/",
-    "seed": "knex seed:run --knexfile ./build/knexfile.js"
+    "seed": "knex seed:run --knexfile ./build/knexfile.js",
+    "prod:migrate:latest": "knex migrate:latest --env production --knexfile ./build/knexfile.js",
+    "prod:migrate:rollback": "knex migrate:rollback --env production --knexfile ./build/knexfile.js",
+    "prod:seed": "knex seed:run --env production --knexfile ./build/knexfile.js"
   },
   "author": "",
   "license": "ISC",

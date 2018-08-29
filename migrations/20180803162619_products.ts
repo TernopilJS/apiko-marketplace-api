@@ -13,13 +13,13 @@ export const up = async (knex: knex) => {
       t.string('description').notNullable();
       t.string('image').notNullable();
       t.float('price').notNullable();
-      t.timestamps();
+      t.timestamps(true, true);
     }),
   ]);
 };
 
 export const down = async (knex: knex) => {
-  await knex.raw('drop extension if exists "uuid-ossp"');
-
   await knex.schema.dropTable('products');
+
+  await knex.raw('drop extension if exists "uuid-ossp"');
 };

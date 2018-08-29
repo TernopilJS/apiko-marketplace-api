@@ -29,6 +29,7 @@ export async function getProducts(req: Request, res: Response) {
 
     res.status(500).json({
       errorMessage: 'Something went wrong',
+      internalError: err.message,
     });
   }
 }
@@ -65,6 +66,7 @@ export async function getProductById(req: Request, res: Response) {
 
     res.status(500).json({
       errorMessage: 'Something went wrong',
+      internalError: err.message,
     });
   }
 }
@@ -81,6 +83,7 @@ export async function removeProductById(req: Request, res: Response) {
 
     res.status(500).json({
       errorMessage: 'Something went wrong',
+      internalError: err.message,
     });
   }
 }
@@ -101,6 +104,7 @@ export async function updateProductById(req: Request, res: Response) {
 
     res.status(500).json({
       errorMessage: 'Something went wrong',
+      internalError: err.message,
     });
   }
 }
@@ -117,6 +121,7 @@ export async function createProduct(req: Request, res: Response) {
 
     res.status(500).json({
       errorMessage: 'Something went wrong',
+      internalError: err.message,
     });
   }
 }
