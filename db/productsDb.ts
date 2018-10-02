@@ -21,6 +21,13 @@ export function getProducts(): Promise<Product[]> {
   return client('products').select('*');
 }
 
+export function getProductsByIds(ids: []): Promise<Product[]> {
+  return client
+    .select('*')
+    .from('products')
+    .whereIn('id', ids);
+}
+
 export function getProductById(id: number): Promise<Product[]> {
   return client('products')
     .where({ id })

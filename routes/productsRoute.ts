@@ -21,7 +21,13 @@ import * as db from '../db/productsDb';
  */
 export async function getProducts(req: Request, res: Response) {
   try {
-    const products: db.Product[] = await db.getProducts();
+    let products: db.Product[] = [];
+
+    if (req.query.ids) {
+      products = await db.getProductsByIds(req.query.ids);
+    } else {
+      products = await db.getProducts();
+    }
 
     res.json(products);
   } catch (err) {
