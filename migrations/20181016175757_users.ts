@@ -12,6 +12,7 @@ export const up = async (knex: knex) => {
       t.string('firstName').notNullable();
       t.string('lastName').notNullable();
       t.string('email').notNullable();
+      t.string('password').notNullable();
       t.timestamps(true, true);
     }),
   ]);
