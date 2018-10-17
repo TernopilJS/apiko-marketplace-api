@@ -14,7 +14,7 @@ const config: KnexConfig = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'perun-site',
+      database: 'apiko-marketplace',
       user: 'postgres',
       password: 'password',
     },
@@ -33,7 +33,7 @@ const config: KnexConfig = {
   staging: {
     client: 'postgresql',
     connection: {
-      database: 'perun-site',
+      database: 'apiko-marketplace',
       user: 'postgres',
       password: 'password',
     },
@@ -56,4 +56,3 @@ const config: KnexConfig = {
 };
 
 export default config;
-module.exports = config;
