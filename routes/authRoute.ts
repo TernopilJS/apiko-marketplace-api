@@ -2,7 +2,9 @@ import { Response, Request } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jwt-simple';
 import * as usersDb from '../db/usersDb';
+import * as passwordsDb from '../db/passwordsDb';
 import { JWT_SECRET } from '../constants';
+import * as _ from 'lodash';
 
 export type LoginParams = {
   email: string,
@@ -21,10 +23,12 @@ export async function login(req: Request, res: Response) {
       throw new Error('Wrong password or email');
     }
 
-    await bcrypt.compare(params.password, user.password);
+    const [passwordEntity]: passwordsDb.PasswordEntry[] =
+      await passwordsDb.findUserPassword({ userId: user.id });
+
+    await bcrypt.compare(params.password, passwordEntity.hash);
 
     const timestamp = new Date().getTime();
-    // TODO: Create token blacklist
     const token = jwt.encode({ timestamp, id: user.id }, JWT_SECRET);
 
     res.json({ token, user });
@@ -37,6 +41,8 @@ export async function login(req: Request, res: Response) {
     });
   }
 }
+
+// TODO: Add logout which will add token to blacklist
 
 export async function register(req: Request, res: Response) {
   try {
@@ -55,13 +61,16 @@ export async function register(req: Request, res: Response) {
       10,
     );
 
-    params.password = passwordHash;
-
-    await usersDb.createUser(params);
+    const [user]: usersDb.User[] = await usersDb.createUser(_.omit(params, 'password'));
+    await passwordsDb.createPassword(
+      { userId: user.id, hash: passwordHash } as passwordsDb.CreatePasswordEntryParams,
+    );
 
     res.json({ success: true });
   } catch (err) {
     console.error(err.message);
+
+    // TODO: Remove user if it's created without password
 
     res.status(500).json({
       errorMessage: 'Something went wrong',

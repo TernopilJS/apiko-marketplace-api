@@ -5,20 +5,19 @@ export const up = async (knex: knex) => {
   await knex.raw('create extension if not exists "uuid-ossp"');
 
   return Promise.all([
-    knex.schema.createTable('users', t => {
+    knex.schema.createTable('passwords', t => {
       t.uuid('id')
         .primary()
         .defaultTo(knex.raw('uuid_generate_v4()'));
-      t.string('firstName').notNullable();
-      t.string('lastName').notNullable();
-      t.string('email').notNullable();
+      t.uuid('userId')
+        .notNullable()
+        .unique();
+      t.string('hash').notNullable();
       t.timestamps(true, true);
     }),
   ]);
 };
 
 export const down = async (knex: knex) => {
-  await knex.schema.dropTable('users');
-
-  await knex.raw('drop extension if exists "uuid-ossp"');
+  await knex.schema.dropTable('passwords');
 };
