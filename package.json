@@ -10,26 +10,35 @@
     "seed": "knex seed:run --knexfile ./build/knexfile.js",
     "prod:migrate:latest": "knex migrate:latest --env production --knexfile ./build/knexfile.js",
     "prod:migrate:rollback": "knex migrate:rollback --env production --knexfile ./build/knexfile.js",
-    "prod:seed": "knex seed:run --env production --knexfile ./build/knexfile.js"
+    "prod:seed": "knex seed:run --env production --knexfile ./build/knexfile.js",
+    "dev:migrate:latest": "knex migrate:latest --env development --knexfile ./build/knexfile.js",
+    "dev:migrate:rollback": "knex migrate:rollback --env development --knexfile ./build/knexfile.js",
+    "dev:seed": "knex seed:run --env development --knexfile ./build/knexfile.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/dotenv": "^4.0.3",
     "@types/es6-shim": "^0.31.37",
     "@types/express": "^4.16.0",
     "@types/knex": "^0.14.19",
+    "@types/lodash": "^4.14.117",
     "apidoc": "^0.17.6",
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "jwt-simple": "^0.5.5",
     "knex": "^0.15.2",
+    "lodash": "^4.17.11",
     "pg": "^7.4.3",
     "ts-node": "^7.0.0",
     "typescript": "^3.0.1"
   },
   "devDependencies": {
     "tslint": "^5.11.0",
-    "tslint-config-airbnb": "^5.10.0"
+    "tslint-config-airbnb": "^5.11.0"
   },
   "engines": {
     "node": "8.6.0",
