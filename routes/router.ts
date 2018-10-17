@@ -2,6 +2,7 @@ import { Router } from 'express';
 import expressJwt from 'express-jwt';
 import * as productRoute from './productsRoute';
 import * as authRoute from './authRoute';
+import * as usersRoute from './usersRoute';
 import { JWT_SECRET } from '../constants';
 
 const router: Router = Router();
@@ -34,6 +35,7 @@ router.patch(
   productRoute.updateProductById,
 );
 router.post('/products', requireAuth, productRoute.createProduct);
+router.get('/users/current', requireAuth, usersRoute.currentUser);
 router.post('/auth/login', authRoute.login);
 router.post('/auth/register', authRoute.register);
 router.post('/auth/remember', authRoute.rememberPassword);

@@ -56,3 +56,4 @@ const config: KnexConfig = {
 };
 
 export default config;
+module.exports = config;

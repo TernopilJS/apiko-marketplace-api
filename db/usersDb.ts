@@ -33,6 +33,12 @@ export function findUser(params: FindUserParams): Promise<User[]> {
     .select();
 }
 
+export function findUserById(id: string): Promise<User[]> {
+  return client('users')
+    .where({ id })
+    .select();
+}
+
 export function createUser(user: CreateUserParams): Promise<User[]> {
   return client('users')
     .insert(user)
