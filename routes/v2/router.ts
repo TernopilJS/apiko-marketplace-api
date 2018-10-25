@@ -3,7 +3,7 @@ import expressJwt from 'express-jwt';
 import * as productRoute from './productsRoute';
 import * as authRoute from './authRoute';
 import * as usersRoute from './usersRoute';
-import { JWT_SECRET } from '../constants';
+import { JWT_SECRET } from '../../constants';
 
 const router: Router = Router();
 
