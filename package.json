@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node ./build/index.js",
+    "dev": "NODE_ENV=development node ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "tsc -b",
     "seed": "knex seed:run --knexfile ./build/knexfile.js",
