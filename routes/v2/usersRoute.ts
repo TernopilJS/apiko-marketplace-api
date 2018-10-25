@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import * as usersDb from '../db/usersDb';
+import * as usersDb from '../../db/usersDb';
 
 export async function currentUser(req: Request, res: Response) {
   try {

@@ -1,9 +1,9 @@
 import { Response, Request } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jwt-simple';
-import * as usersDb from '../db/usersDb';
-import * as passwordsDb from '../db/passwordsDb';
-import { JWT_SECRET } from '../constants';
+import * as usersDb from '../../db/usersDb';
+import * as passwordsDb from '../../db/passwordsDb';
+import { JWT_SECRET } from '../../constants';
 import * as _ from 'lodash';
 
 export type LoginParams = {
