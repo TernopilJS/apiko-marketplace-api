@@ -5,6 +5,7 @@ import * as usersDb from '../../db/usersDb';
 import * as passwordsDb from '../../db/passwordsDb';
 import { JWT_SECRET } from '../../constants';
 import * as _ from 'lodash';
+import { sendSomethingWentWrongError } from './errors';
 
 export type LoginParams = {
   email: string,
@@ -15,7 +16,7 @@ export async function login(req: Request, res: Response) {
   try {
     const params: LoginParams = req.body;
 
-    const [user]: usersDb.User[] = await usersDb.findUser(
+    const [user] = await usersDb.findUser(
       params as usersDb.FindUserParams,
     );
 
@@ -23,7 +24,7 @@ export async function login(req: Request, res: Response) {
       throw new Error('Wrong password or email');
     }
 
-    const [passwordEntity]: passwordsDb.PasswordEntry[] =
+    const [passwordEntity] =
       await passwordsDb.findUserPassword({ userId: user.id });
 
     await bcrypt.compare(params.password, passwordEntity.hash);
@@ -35,10 +36,7 @@ export async function login(req: Request, res: Response) {
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Wrong password or email',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
 
@@ -48,7 +46,7 @@ export async function register(req: Request, res: Response) {
   try {
     const params: usersDb.CreateUserParams = req.body;
 
-    const users: usersDb.User[] = await usersDb.findUser(
+    const users = await usersDb.findUser(
       { email: params.email } as usersDb.FindUserParams,
     );
 
@@ -61,7 +59,7 @@ export async function register(req: Request, res: Response) {
       10,
     );
 
-    const [user]: usersDb.User[] = await usersDb.createUser(_.omit(params, 'password'));
+    const [user] = await usersDb.createUser(_.omit(params, 'password'));
     await passwordsDb.createPassword(
       { userId: user.id, hash: passwordHash } as passwordsDb.CreatePasswordEntryParams,
     );
@@ -72,10 +70,7 @@ export async function register(req: Request, res: Response) {
 
     // TODO: Remove user if it's created without password
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
 
@@ -83,7 +78,7 @@ export async function rememberPassword(req: Request, res: Response) {
   try {
     const params: usersDb.FindUserParams = req.body;
 
-    const [users]: usersDb.User[] = await usersDb.findUser(
+    const [users] = await usersDb.findUser(
       params,
     );
 
@@ -92,9 +87,6 @@ export async function rememberPassword(req: Request, res: Response) {
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }

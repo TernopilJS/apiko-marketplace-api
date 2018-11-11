@@ -1,95 +1,78 @@
 import { Response, Request } from 'express';
-import * as db from '../../db/productsDb';
+import * as Product from '../../db/productsDb';
+import { sendSomethingWentWrongError } from './errors';
 
 export async function getProducts(req: Request, res: Response) {
   try {
-    let products: db.Product[] = [];
+    let products: Product.Product[] = [];
 
     if (req.query.ids) {
-      products = await db.getProductsByIds(req.query.ids);
+      products = await Product.getProductsByIds(req.query.ids);
     } else {
-      products = await db.getProducts();
+      products = await Product.getProducts();
     }
 
     res.json(products);
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
 
 export async function getProductById(req: Request, res: Response) {
   try {
-    const id: number = req.params.id;
+    const { id } = req.params;
 
-    const products: db.Product[] = await db.getProductById(id);
+    const products = await Product.getProductById(id);
 
     res.json(products);
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
 
 export async function removeProductById(req: Request, res: Response) {
   try {
-    const id: number = req.params.id;
+    const { id } = req.params;
 
-    await db.removeProductById(id);
+    await Product.removeProductById(id);
 
     res.json({ success: true });
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
 
 export async function updateProductById(req: Request, res: Response) {
   try {
-    const id: number = req.params.id;
-    const patch: db.ProductPatch = req.body;
+    const { id } = req.params;
+    const patch: Product.ProductPatch = req.body;
 
-    const products: db.Product[] = await db.updateProductById(
-      id,
-      patch,
-    );
+    const products = await Product.updateProductById(id, patch);
 
     res.json(products);
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
 
 export async function createProduct(req: Request, res: Response) {
   try {
-    const patch: db.ProductPatch = req.body;
+    const patch: Product.ProductPatch = req.body;
 
-    const products: db.Product[] = await db.createProduct(patch);
+    const products = await Product.createProduct(patch);
 
     res.json(products);
   } catch (err) {
     console.error(err.message);
 
-    res.status(500).json({
-      errorMessage: 'Something went wrong',
-      internalError: err.message,
-    });
+    sendSomethingWentWrongError(res, err);
   }
 }
