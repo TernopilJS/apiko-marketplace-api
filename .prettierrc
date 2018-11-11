@@ -7,5 +7,6 @@
   "jsxBracketSameLine": false,
   "parser": "babylon",
   "noSemi": false,
-  "rcVerbose": true
+  "rcVerbose": true,
+  "arrowParens": "always"
 }

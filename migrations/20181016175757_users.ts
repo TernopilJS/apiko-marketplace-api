@@ -5,7 +5,7 @@ export const up = async (knex: knex) => {
   await knex.raw('create extension if not exists "uuid-ossp"');
 
   return Promise.all([
-    knex.schema.createTable('users', t => {
+    knex.schema.createTable('users', (t) => {
       t.uuid('id')
         .primary()
         .defaultTo(knex.raw('uuid_generate_v4()'));
