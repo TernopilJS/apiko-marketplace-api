@@ -3,6 +3,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import routerV1 from './routes/v1/router';
 import routerV2 from './routes/v2/router';
+import routerV3 from './routes/v3/router';
 
 type Port = string | number;
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use('/api/v1', routerV1);
 app.use('/api/v2', routerV2);
+app.use('/api/v3', routerV3);
 
 app.use((err: Error, req: Request, res: Response, next: Function) => {
   if (err.name === 'UnauthorizedError') {
