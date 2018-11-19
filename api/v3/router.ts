@@ -1,9 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import expressJwt from 'express-jwt';
-import * as productRoute from './productsRoute';
-import * as authRoute from './authRoute';
-import * as usersRoute from './usersRoute';
-import * as User from '../../db/usersDb';
+import * as productRoute from './routes/productsRoute';
+import * as authRoute from './routes/authRoute';
+import * as usersRoute from './routes/usersRoute';
+import * as User from './db/usersDb';
 import { JWT_SECRET } from '../../constants';
 import { sendUnauthorizedError } from './errors';
 

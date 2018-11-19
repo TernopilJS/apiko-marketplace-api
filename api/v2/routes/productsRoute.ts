@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import * as db from '../../db/productsDb';
+import * as db from '../db/productsDb';
 
 export async function getProducts(req: Request, res: Response) {
   try {

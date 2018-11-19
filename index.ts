@@ -1,9 +1,9 @@
 import express, { Response, Request } from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-import routerV1 from './routes/v1/router';
-import routerV2 from './routes/v2/router';
-import routerV3 from './routes/v3/router';
+import routerV1 from './api/v1/router';
+import routerV2 from './api/v2/router';
+import routerV3 from './api/v3/router';
 
 type Port = string | number;
 

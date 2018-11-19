@@ -1,5 +1,5 @@
 import knex from 'knex';
-import knexFile from '../knexfile';
+import knexFile from '../../../knexfile';
 
 type Env = 'development' | 'production';
 

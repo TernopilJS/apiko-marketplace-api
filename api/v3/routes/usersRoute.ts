@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
-import * as User from '../../db/usersDb';
-import { sendSomethingWentWrongError } from './errors';
+import * as User from '../db/usersDb';
+import { sendSomethingWentWrongError } from '../errors';
 
 export async function currentUser(req: Request, res: Response) {
   try {
@@ -32,7 +32,8 @@ export async function getById(req: Request, res: Response) {
 
 export async function getAll(req: Request, res: Response) {
   try {
-    const users = await User.findAll();
+    const params: User.PaginationParams = req.query;
+    const users = await User.findAll(params);
 
     res.json(users);
   } catch (err) {

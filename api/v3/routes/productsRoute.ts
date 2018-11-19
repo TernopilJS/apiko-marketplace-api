@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
-import * as Product from '../../db/productsDb';
-import { sendSomethingWentWrongError } from './errors';
+import * as Product from '../db/productsDb';
+import { sendSomethingWentWrongError } from '../errors';
 
 export async function getProducts(req: Request, res: Response) {
   try {
@@ -9,7 +9,8 @@ export async function getProducts(req: Request, res: Response) {
     if (req.query.ids) {
       products = await Product.getProductsByIds(req.query.ids);
     } else {
-      products = await Product.getProducts();
+      const params: Product.PaginationParams = req.query;
+      products = await Product.getProducts(params);
     }
 
     res.json(products);
