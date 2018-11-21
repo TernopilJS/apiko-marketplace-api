@@ -27,7 +27,11 @@ export async function login(req: Request, res: Response) {
     const [passwordEntity] =
       await passwordsDb.findUserPassword({ userId: user.id });
 
-    await bcrypt.compare(params.password, passwordEntity.hash);
+    const match = await bcrypt.compare(params.password, passwordEntity.hash);
+
+    if (!match) {
+      throw new Error('Wrong password or email');
+    }
 
     const timestamp = new Date().getTime();
     const token = jwt.encode({ timestamp, id: user.id }, JWT_SECRET);
